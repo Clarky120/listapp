@@ -32,7 +32,7 @@ export class ListPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async (result) => {
       console.log('The dialog was closed');
-      if (result !== '') {
+      if (result && result !== '') {
         await this._db.createList(result);
         this.lists = await this._db.getAllLists();
       }
