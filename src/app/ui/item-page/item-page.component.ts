@@ -14,7 +14,8 @@ const confetti = require('canvas-confetti');
 })
 export class ItemPageComponent implements OnInit {
   public newItem: string = '';
-  public list?: doc;
+  public list!: doc;
+  public deleteMode: boolean = false;
 
   constructor(private _db: DbService, private _router: Router, public dialog: MatDialog, private _activatedRoute: ActivatedRoute) { }
 
@@ -23,6 +24,7 @@ export class ItemPageComponent implements OnInit {
   }
 
   async addItemToList() {
+    this.deleteMode = false;
     const dialogRef = this.dialog.open(AddNewItemComponent, {
       data: "",
     });
@@ -40,6 +42,11 @@ export class ItemPageComponent implements OnInit {
     });
   }
 
+  async deleteItem(index: number) {
+    this.list.items.splice(index, 1);
+    this.list = await this._db.updateList(this.list);
+  }
+
   async itemToggled(event: MatSelectionListChange) {
     const item = event.options[0].value;
     if (this.list) {
@@ -48,13 +55,18 @@ export class ItemPageComponent implements OnInit {
       if (event.options[0].selected) {
         this.shoot();
       }
-
-      if (this.list.items.filter((i) => i.complete).length === this.list.items.length) {
-        console.log('List finished');
-        this.listComplete();
-      }
+      this.isComplete()
     }
   }
+
+  isComplete() {
+    if (this.list?.items.filter((i) => i.complete).length === this.list?.items.length) {
+      console.log('List finished');
+      this.listComplete();
+    }
+  }
+
+  /* Confetti stuff */
 
   listComplete() {
     let time = 1;
