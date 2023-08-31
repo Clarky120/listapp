@@ -31,7 +31,7 @@ export class ItemPageComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async (result) => {
       console.log('The dialog was closed');
-      if (result !== '' && this.list) {
+      if (result && result !== '' && this.list) {
         this.list?.items.push({
           name: result,
           complete: false
@@ -103,5 +103,9 @@ export class ItemPageComponent implements OnInit {
 
   confetti(args: any) {
     return window['confetti'].apply(this, arguments);
+  }
+
+  backToMainScreen() {
+    this._router.navigate(['/listPage']);
   }
 }
