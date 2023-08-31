@@ -2,13 +2,23 @@
     <span>Add New List</span>
     <span class="spacer"></span>
     <button mat-icon-button (click)="addList()">
-      <mat-icon>note_add</mat-icon>
+        <mat-icon>note_add</mat-icon>
+    </button>
+    <button mat-icon-button (click)="deleteMode = !deleteMode">
+        <mat-icon *ngIf="!deleteMode">delete</mat-icon>
+        <mat-icon *ngIf="deleteMode">cancel</mat-icon>
     </button>
 </mat-toolbar>
 <div class="background">
-    <mat-list *ngIf="!this.loading && this.lists.length">
-        <mat-list-item *ngFor="let list of this.lists">
-            <div matListItemTitle (click)="openList(list)">{{list.key}}</div>
-        </mat-list-item>
-    </mat-list>
+    <div class="list-holder">
+        <mat-list *ngIf="!this.loading && this.lists.length">
+            <mat-list-item class="list-display" *ngFor="let list of this.lists">
+                <div matListItemTitle (click)="openList(list)" >{{list.key}}</div>
+                <div class="spacer"></div>
+                <button matListItemMeta mat-icon-button *ngIf="deleteMode" (click)="deleteItem(list)">
+                    <mat-icon>delete_forever</mat-icon>
+                </button>
+            </mat-list-item>
+        </mat-list>
+    </div>
 </div>

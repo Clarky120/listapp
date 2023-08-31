@@ -42,7 +42,7 @@ export class DbService {
   }
 
   async deleteList(list: listObject) {
-    await this.db?.get(list._id).then((doc) => {
+    await this.db?.get(list.id).then((doc) => {
       return this.db?.remove(doc);
     }).then((res) => {
       if (res?.ok) {
@@ -65,7 +65,7 @@ export class DbService {
 }
 
 export interface listObject {
-  _id: string;
+  id: string;
   key: string;
   value: rev;
   doc: doc;
