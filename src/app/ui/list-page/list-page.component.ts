@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { DbService, listObject } from 'src/app/services/db.service';
 import { AddNewListComponent } from '../add-new-list/add-new-list.component';
+import { DeleteCheckComponent } from '../delete-check/delete-check.component';
 
 @Component({
   selector: 'app-list-page',
@@ -15,7 +16,7 @@ export class ListPageComponent implements OnInit {
   loading: boolean = false;
   deleteMode: boolean = false;
 
-  constructor(private _db: DbService, private _router: Router, public dialog: MatDialog) {}
+  constructor(private _db: DbService, private _router: Router, public dialog: MatDialog) { }
 
   async ngOnInit(): Promise<void> {
     this.loading = true;
@@ -24,13 +25,14 @@ export class ListPageComponent implements OnInit {
   }
 
   async addList() {
+    this.deleteMode = false;
     const dialogRef = this.dialog.open(AddNewListComponent, {
       data: "",
     });
 
     dialogRef.afterClosed().subscribe(async (result) => {
       console.log('The dialog was closed');
-      if(result !== '') {
+      if (result !== '') {
         await this._db.createList(result);
         this.lists = await this._db.getAllLists();
       }
@@ -38,8 +40,17 @@ export class ListPageComponent implements OnInit {
   }
 
   async deleteItem(list: any) {
-    await this._db.deleteList(list);
-    this.lists = await this._db.getAllLists();
+    const dialogRef = this.dialog.open(DeleteCheckComponent, {
+      data: { id: list.id },
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      console.log('The dialog was closed');
+      if (result) {
+        await this._db.deleteList(list);
+        this.lists = await this._db.getAllLists();
+      }
+    });
   }
 
   openList(list: listObject) {

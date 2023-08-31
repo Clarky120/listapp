@@ -18,6 +18,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { AddNewListComponent } from './ui/add-new-list/add-new-list.component';
 import { AddNewItemComponent } from './ui/add-new-item/add-new-item.component';
+import { DeleteCheckComponent } from './ui/delete-check/delete-check.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { AddNewItemComponent } from './ui/add-new-item/add-new-item.component';
     ItemPageComponent,
     AddNewListComponent,
     AddNewItemComponent,
+    DeleteCheckComponent,
   ],
   imports: [
     BrowserModule,
