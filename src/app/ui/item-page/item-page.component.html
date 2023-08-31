@@ -1,0 +1,12 @@
+<mat-toolbar>
+    <span>Add New Item</span>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="addItemToList()">
+      <mat-icon>note_add</mat-icon>
+    </button>
+</mat-toolbar>
+<mat-selection-list *ngIf="this.list?.items?.length" (selectionChange)="itemToggled($event)">
+    <mat-list-option *ngFor="let list of this.list?.items" [selected]="list.complete" [value]="list">
+        {{list.name}}
+    </mat-list-option>
+</mat-selection-list>

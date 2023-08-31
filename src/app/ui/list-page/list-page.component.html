@@ -1,0 +1,14 @@
+<mat-toolbar>
+    <span>Add New List</span>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="addList()">
+      <mat-icon>note_add</mat-icon>
+    </button>
+</mat-toolbar>
+<div class="background">
+    <mat-list *ngIf="!this.loading && this.lists.length">
+        <mat-list-item *ngFor="let list of this.lists">
+            <div matListItemTitle (click)="openList(list)">{{list.key}}</div>
+        </mat-list-item>
+    </mat-list>
+</div>
