@@ -16,6 +16,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+
 import { AddNewListComponent } from './ui/add-new-list/add-new-list.component';
 import { AddNewItemComponent } from './ui/add-new-item/add-new-item.component';
 import { DeleteCheckComponent } from './ui/delete-check/delete-check.component';
@@ -41,7 +43,8 @@ import { DeleteCheckComponent } from './ui/delete-check/delete-check.component';
     MatIconModule,
     MatDialogModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDividerModule
   ],
   providers: [DbService],
   bootstrap: [AppComponent]

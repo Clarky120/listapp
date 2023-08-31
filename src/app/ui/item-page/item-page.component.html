@@ -1,4 +1,7 @@
 <mat-toolbar>
+    <button mat-icon-button (click)="backToMainScreen()">
+        <mat-icon *ngIf="!deleteMode">arrow_back</mat-icon>
+    </button>
     <span>Add New Item</span>
     <span class="spacer"></span>
     <button mat-icon-button (click)="addItemToList()">
