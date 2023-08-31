@@ -13,6 +13,7 @@ import { AddNewListComponent } from '../add-new-list/add-new-list.component';
 export class ListPageComponent implements OnInit {
   lists: any[] = [];
   loading: boolean = false;
+  deleteMode: boolean = false;
 
   constructor(private _db: DbService, private _router: Router, public dialog: MatDialog) {}
 
@@ -34,6 +35,11 @@ export class ListPageComponent implements OnInit {
         this.lists = await this._db.getAllLists();
       }
     });
+  }
+
+  async deleteItem(list: any) {
+    await this._db.deleteList(list);
+    this.lists = await this._db.getAllLists();
   }
 
   openList(list: listObject) {
