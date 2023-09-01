@@ -1,9 +1,9 @@
 .background {
-    background-color: #9CAF88;
-    color: #9CAF88;
-    width: 100vw;
+  background-color: var(--background);
+  color: var(--primary);
+  width: 100vw;
 }
 
 .spacer {
-    flex: 1 1 auto;
-  }
+  flex: 1 1 auto;
+}

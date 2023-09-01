@@ -1,21 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./mat-theme.scss";
+:root {
+  --primary: #9caf88;
+  --accent: #cccccc;
+  --warn: red;
+  --background: #fff;
+}
 
 html,
 body {
-    height: 100%;
-    background-color: #9CAF88;
-    color: #9CAF88;
+  height: 100%;
+  background-color: var(--background);
+  color: #fff;
 }
 
 body {
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-div {
-    color: #1F3D20;
+mat-button {
+  color: white;
 }
 
 .mat-divider.mat-divider-inset {
-    margin-left: 0px !important;
+  margin-left: 0px !important;
 }

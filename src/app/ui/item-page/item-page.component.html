@@ -1,29 +1,45 @@
-<mat-toolbar>
-    <button mat-icon-button (click)="backToMainScreen()">
-        <mat-icon *ngIf="!deleteMode">arrow_back</mat-icon>
-    </button>
-    <span>Add New Item</span>
-    <span class="spacer"></span>
-    <button mat-icon-button (click)="addItemToList()">
-      <mat-icon>note_add</mat-icon>
-    </button>
-    <button mat-icon-button (click)="deleteMode = !deleteMode">
-        <mat-icon *ngIf="!deleteMode">delete</mat-icon>
-        <mat-icon *ngIf="deleteMode">cancel</mat-icon>
-    </button>
+<mat-toolbar color="primary">
+  <button mat-icon-button (click)="backToMainScreen()">
+    <mat-icon *ngIf="!deleteMode">arrow_back</mat-icon>
+  </button>
+  <span>Add New Item</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="addItemToList()">
+    <mat-icon>note_add</mat-icon>
+  </button>
+  <button mat-icon-button (click)="deleteMode = !deleteMode">
+    <mat-icon *ngIf="!deleteMode">delete</mat-icon>
+    <mat-icon *ngIf="deleteMode">cancel</mat-icon>
+  </button>
 </mat-toolbar>
-<mat-selection-list *ngIf="this.list?.items?.length && !this.deleteMode" (selectionChange)="itemToggled($event)">
-    <mat-list-option *ngFor="let list of this.list?.items" [selected]="list.complete" [value]="list">
-        {{list.name}}
-    </mat-list-option>
+<mat-selection-list
+  *ngIf="this.list?.items?.length && !this.deleteMode"
+  (selectionChange)="itemToggled($event)"
+>
+  <mat-list-option
+    *ngFor="let list of this.list?.items"
+    [selected]="list.complete"
+    [value]="list"
+    color="primary"
+  >
+    {{ list.name }}
+  </mat-list-option>
 </mat-selection-list>
 
-<mat-list  *ngIf="this.list?.items?.length && this.deleteMode">
-    <mat-list-item class="list-display" *ngFor="let list of this.list?.items; let i = index;">
-        <div matListItemTitle>{{list.name}}</div>
-        <div class="spacer"></div>
-        <button matListItemMeta mat-icon-button *ngIf="deleteMode" (click)="deleteItem(i)">
-            <mat-icon>delete_forever</mat-icon>
-        </button>
-    </mat-list-item>
+<mat-list *ngIf="this.list?.items?.length && this.deleteMode">
+  <mat-list-item
+    class="list-display"
+    *ngFor="let list of this.list?.items; let i = index"
+  >
+    <div matListItemTitle>{{ list.name }}</div>
+    <div class="spacer"></div>
+    <button
+      matListItemMeta
+      mat-icon-button
+      *ngIf="deleteMode"
+      (click)="deleteItem(i)"
+    >
+      <mat-icon>delete_forever</mat-icon>
+    </button>
+  </mat-list-item>
 </mat-list>
