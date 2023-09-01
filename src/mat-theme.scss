@@ -1,0 +1,91 @@
+@import "@angular/material/theming";
+@include mat-core();
+
+// $mat-primary-scheme-dark: (
+//   100: var(--primary),
+//   500: var(--primary),
+//   700: var(--primary),
+//   contrast: (
+//     100: rgba(0, 0, 0, 0.87),
+//     500: #ffffff,
+//     700: #ffffff,
+//   ),
+// );
+// $mat-accent-scheme-dark: (
+//   100: var(--accent),
+//   500: var(--accent),
+//   700: var(--accent),
+//   contrast: (
+//     100: #ffffff,
+//     500: #ffffff,
+//     700: #ffffff,
+//   ),
+// );
+// $mat-warn-scheme-dark: (
+//   100: var(--warn),
+//   500: var(--warn),
+//   700: var(--warn),
+//   contrast: (
+//     100: #ffffff,
+//     500: #ffffff,
+//     700: #ffffff,
+//   ),
+// );
+
+// $mat-primary-palette-dark: mat-palette($mat-primary-scheme-dark);
+// $mat-accent-palette-dark: mat-palette($mat-accent-scheme-dark);
+// $mat-warn-palette-dark: mat-palette($mat-warn-scheme-dark);
+
+// $app-dark-theme: mat-dark-theme(
+//   $mat-primary-palette-dark,
+//   $mat-accent-palette-dark,
+//   $mat-warn-palette-dark
+// );
+
+//LIGHT THEME
+$mat-primary-scheme: (
+  100: var(--primary),
+  500: var(--primary),
+  700: var(--primary),
+  contrast: (
+    100: #ffffff,
+    500: #ffffff,
+    700: #ffffff,
+  ),
+);
+$mat-accent-scheme: (
+  100: var(--accent),
+  500: var(--accent),
+  700: var(--accent),
+  contrast: (
+    100: #ffffff,
+    500: #ffffff,
+    700: #ffffff,
+  ),
+);
+$mat-warn-scheme: (
+  100: var(--warn),
+  500: var(--warn),
+  700: var(--warn),
+  contrast: (
+    100: #ffffff,
+    500: #ffffff,
+    700: #ffffff,
+  ),
+);
+
+$mat-primary-palette: mat-palette($mat-primary-scheme);
+$mat-accent-palette: mat-palette($mat-accent-scheme);
+$mat-warn-palette: mat-palette($mat-warn-scheme);
+
+$app-light-theme: mat-light-theme(
+  $mat-primary-palette,
+  $mat-accent-palette,
+  $mat-warn-palette
+);
+
+@include angular-material-theme($app-light-theme);
+
+// .dark {
+//   @include angular-material-theme($app-dark-theme);
+// }
