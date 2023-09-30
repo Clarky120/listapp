@@ -29,38 +29,40 @@ export class ItemPageComponent implements OnInit {
       data: "",
     });
 
-    dialogRef.afterClosed().subscribe(async (result) => {
-      console.log('The dialog was closed');
-      if (result && result !== '' && this.list) {
-        this.list?.items.push({
-          name: result,
-          complete: false
-        })
+    //FIX THIS FOR SUBLISTS
 
-        await this._db.updateList(this.list)
-      }
-    });
+    // dialogRef.afterClosed().subscribe(async (result) => {
+    //   console.log('The dialog was closed');
+    //   if (result && result !== '' && this.list) {
+    //     this.list?.items.push({
+    //       name: result,
+    //       complete: false
+    //     })
+
+    //     await this._db.updateList(this.list)
+    //   }
+    // });
   }
 
-  async deleteItem(index: number) {
-    this.list.items.splice(index, 1);
+  async deleteItem(index: number, listIndex: number) {
+    this.list.lists[listIndex].items.splice(index, 1);
     this.list = await this._db.updateList(this.list);
   }
 
-  async itemToggled(event: MatSelectionListChange) {
+  async itemToggled(event: MatSelectionListChange, listIndex: number) {
     const item = event.options[0].value;
     if (this.list) {
-      this.list.items[this.list.items.findIndex((i) => i.name === item.name)].complete = event.options[0].selected;
+      this.list.lists[listIndex].items[this.list.lists[listIndex].items.findIndex((i) => i.name === item.name)].complete = event.options[0].selected;
       this.list = await this._db.updateList(this.list)
       if (event.options[0].selected) {
         this.shoot();
       }
-      this.isComplete()
+      this.isComplete(listIndex)
     }
   }
 
-  isComplete() {
-    if (this.list?.items.filter((i) => i.complete).length === this.list?.items.length) {
+  isComplete(listIndex: number) {
+    if (this.list?.lists[listIndex].items.filter((i) => i.complete).length === this.list?.lists[listIndex].items.length) {
       console.log('List finished');
       this.listComplete();
     }

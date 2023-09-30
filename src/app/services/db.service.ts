@@ -6,7 +6,7 @@ const PouchDB = require('pouchdb-browser').default;
 })
 
 export class DbService {
-  public db;
+  public db: any;
   public currentList: listObject | undefined;
 
   constructor() { }
@@ -19,7 +19,7 @@ export class DbService {
    await this.db?.put({
       _id: name,
       items: []
-    }).then((res) => {
+    }).then((res: any) => {
       if (res.ok) {
         console.log("New Item Added")
       }
@@ -31,7 +31,7 @@ export class DbService {
       _id: list._id,
       _rev: list._rev,
       items: list.items
-    }).then((res) => {
+    }).then((res: any) => {
       if (res.ok) {
         console.log("List Updated")
         list._rev = res.rev
@@ -42,9 +42,9 @@ export class DbService {
   }
 
   async deleteList(list: listObject) {
-    await this.db?.get(list.id).then((doc) => {
+    await this.db?.get(list.id).then((doc: any) => {
       return this.db?.remove(doc);
-    }).then((res) => {
+    }).then((res: any) => {
       if (res?.ok) {
         console.log("Deleted list")
       }
@@ -76,9 +76,14 @@ export interface rev {
 }
 
 export interface doc {
-  items: itemObject[];
+  lists: sublist[];
   _id: string;
   _rev: string;
+}
+
+export interface sublist {
+  name: string;
+  items: itemObject[];
 }
 
 export interface itemObject {
