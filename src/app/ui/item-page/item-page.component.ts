@@ -43,7 +43,7 @@ export class ItemPageComponent implements OnInit {
     });
   }
 
-  addNewSubList() {
+  async addNewSubList() {
     this.deleteMode = false;
     const dialogRef = this.dialog.open(AddNewSublistComponent, {
       data: "",
@@ -56,6 +56,11 @@ export class ItemPageComponent implements OnInit {
         this.list = await this._db.updateList(this.list);
       }
     });
+  }
+
+  async deleteSublist(subIndex: number) {
+    this.list.lists.splice(subIndex, 1);
+    this.list = await this._db.updateList(this.list)
   }
 
   async deleteItem(index: number, listIndex: number) {

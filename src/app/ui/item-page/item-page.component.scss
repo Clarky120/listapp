@@ -1,3 +1,27 @@
 .spacer {
     flex: 1 1 auto;
   }
+
+.list-head {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  .list-head-text-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    margin-left: 10px;
+
+    .list-head-text {
+      color: black;
+      font-weight: bold;
+    }
+  }
+
+  .list-image {
+    color: black;
+  }
+}
