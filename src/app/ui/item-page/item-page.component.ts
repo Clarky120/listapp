@@ -4,6 +4,7 @@ import { MatSelectionListChange } from '@angular/material/list';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DbService, doc, listObject } from 'src/app/services/db.service';
 import { AddNewItemComponent } from '../add-new-item/add-new-item.component';
+import { AddNewSublistComponent } from '../add-new-sublist/add-new-sublist.component';
 
 const confetti = require('canvas-confetti');
 
@@ -23,25 +24,38 @@ export class ItemPageComponent implements OnInit {
     this.list = await this._db.getList(this._activatedRoute.snapshot.paramMap.get('id')!)
   }
 
-  async addItemToList() {
+  async addItemToList(listIndex: number) {
     this.deleteMode = false;
     const dialogRef = this.dialog.open(AddNewItemComponent, {
       data: "",
     });
 
-    //FIX THIS FOR SUBLISTS
+    dialogRef.afterClosed().subscribe(async (result) => {
+      console.log('The dialog was closed');
+      if (result && result !== '' && this.list) {
+        this.list.lists[listIndex]?.items.push({
+          name: result,
+          complete: false
+        })
 
-    // dialogRef.afterClosed().subscribe(async (result) => {
-    //   console.log('The dialog was closed');
-    //   if (result && result !== '' && this.list) {
-    //     this.list?.items.push({
-    //       name: result,
-    //       complete: false
-    //     })
+        await this._db.updateList(this.list)
+      }
+    });
+  }
 
-    //     await this._db.updateList(this.list)
-    //   }
-    // });
+  addNewSubList() {
+    this.deleteMode = false;
+    const dialogRef = this.dialog.open(AddNewSublistComponent, {
+      data: "",
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      console.log('The dialog was closed');
+      if (result && result !== '') {
+        this.list.lists.push({name: result, items: []});
+        this.list = await this._db.updateList(this.list);
+      }
+    });
   }
 
   async deleteItem(index: number, listIndex: number) {

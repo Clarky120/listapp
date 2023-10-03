@@ -4,7 +4,7 @@
   </button>
   <span>Add New Item</span>
   <span class="spacer"></span>
-  <button mat-icon-button (click)="addItemToList()">
+  <button mat-icon-button (click)="addNewSubList()">
     <mat-icon>note_add</mat-icon>
   </button>
   <button mat-icon-button (click)="deleteMode = !deleteMode">
@@ -13,7 +13,12 @@
   </button>
 </mat-toolbar>
 <div *ngFor="let list of this.list?.lists; let i = index">
-  <div>{{list.name}}</div>
+  <div>
+    <div>{{list.name}}</div>
+    <button mat-icon-button (click)="addItemToList(i)">
+      <mat-icon>note_add</mat-icon>
+    </button>
+  </div>
   <mat-selection-list *ngIf="this.list?.items?.length && !this.deleteMode" (selectionChange)="itemToggled($event, i)">
     <mat-list-option *ngFor="let list of this.list?.items" [selected]="list.complete" [value]="list" color="primary">
       {{ list.name }}

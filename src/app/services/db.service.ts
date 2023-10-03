@@ -16,9 +16,9 @@ export class DbService {
   }
 
   async createList(name: string) {
-   await this.db?.put({
+    await this.db?.put({
       _id: name,
-      items: []
+      lists: []
     }).then((res: any) => {
       if (res.ok) {
         console.log("New Item Added")
@@ -30,7 +30,7 @@ export class DbService {
     await this.db?.put({
       _id: list._id,
       _rev: list._rev,
-      items: list.items
+      lists: list.lists
     }).then((res: any) => {
       if (res.ok) {
         console.log("List Updated")
@@ -52,7 +52,7 @@ export class DbService {
   }
 
   async getAllLists() {
-    return (await this.db?.allDocs({include_docs: true}))?.rows || [];
+    return (await this.db?.allDocs({ include_docs: true }))?.rows || [];
   }
 
   async getList(key: string) {

@@ -23,6 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { AddNewListComponent } from './ui/add-new-list/add-new-list.component';
 import { AddNewItemComponent } from './ui/add-new-item/add-new-item.component';
 import { DeleteCheckComponent } from './ui/delete-check/delete-check.component';
+import { AddNewSublistComponent } from './ui/add-new-sublist/add-new-sublist.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { DeleteCheckComponent } from './ui/delete-check/delete-check.component';
     AddNewListComponent,
     AddNewItemComponent,
     DeleteCheckComponent,
+    AddNewSublistComponent,
   ],
   imports: [
     BrowserModule,
