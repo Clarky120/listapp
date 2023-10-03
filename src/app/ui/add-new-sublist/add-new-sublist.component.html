@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Select title for new sub-list</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <input matInput [(ngModel)]="data" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="accent" (click)="onNoClick()">Cancel</button>
+  <span class="spacer"></span>
+  <button
+    mat-raised-button
+    color="primary"
+    [mat-dialog-close]="data"
+    [disabled]="data === ''"
+  >
+    Create
+  </button>
+</div>

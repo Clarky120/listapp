@@ -4,6 +4,7 @@ import { MatSelectionListChange } from '@angular/material/list';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DbService, doc, listObject } from 'src/app/services/db.service';
 import { AddNewItemComponent } from '../add-new-item/add-new-item.component';
+import { AddNewSublistComponent } from '../add-new-sublist/add-new-sublist.component';
 
 const confetti = require('canvas-confetti');
 
@@ -23,7 +24,7 @@ export class ItemPageComponent implements OnInit {
     this.list = await this._db.getList(this._activatedRoute.snapshot.paramMap.get('id')!)
   }
 
-  async addItemToList() {
+  async addItemToList(listIndex: number) {
     this.deleteMode = false;
     const dialogRef = this.dialog.open(AddNewItemComponent, {
       data: "",
@@ -32,7 +33,7 @@ export class ItemPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async (result) => {
       console.log('The dialog was closed');
       if (result && result !== '' && this.list) {
-        this.list?.items.push({
+        this.list.lists[listIndex]?.items.push({
           name: result,
           complete: false
         })
@@ -42,25 +43,45 @@ export class ItemPageComponent implements OnInit {
     });
   }
 
-  async deleteItem(index: number) {
-    this.list.items.splice(index, 1);
+  async addNewSubList() {
+    this.deleteMode = false;
+    const dialogRef = this.dialog.open(AddNewSublistComponent, {
+      data: "",
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      console.log('The dialog was closed');
+      if (result && result !== '') {
+        this.list.lists.push({name: result, items: []});
+        this.list = await this._db.updateList(this.list);
+      }
+    });
+  }
+
+  async deleteSublist(subIndex: number) {
+    this.list.lists.splice(subIndex, 1);
+    this.list = await this._db.updateList(this.list)
+  }
+
+  async deleteItem(index: number, listIndex: number) {
+    this.list.lists[listIndex].items.splice(index, 1);
     this.list = await this._db.updateList(this.list);
   }
 
-  async itemToggled(event: MatSelectionListChange) {
+  async itemToggled(event: MatSelectionListChange, listIndex: number) {
     const item = event.options[0].value;
     if (this.list) {
-      this.list.items[this.list.items.findIndex((i) => i.name === item.name)].complete = event.options[0].selected;
+      this.list.lists[listIndex].items[this.list.lists[listIndex].items.findIndex((i) => i.name === item.name)].complete = event.options[0].selected;
       this.list = await this._db.updateList(this.list)
       if (event.options[0].selected) {
         this.shoot();
       }
-      this.isComplete()
+      this.isComplete(listIndex)
     }
   }
 
-  isComplete() {
-    if (this.list?.items.filter((i) => i.complete).length === this.list?.items.length) {
+  isComplete(listIndex: number) {
+    if (this.list?.lists[listIndex].items.filter((i) => i.complete).length === this.list?.lists[listIndex].items.length) {
       console.log('List finished');
       this.listComplete();
     }

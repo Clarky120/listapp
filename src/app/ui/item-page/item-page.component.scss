@@ -1,3 +1,24 @@
 .spacer {
     flex: 1 1 auto;
   }
+
+.list-head {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  .list-head-text-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    margin-left: 10px;
+
+    .list-head-text {
+      color: #9caf88;
+      font-weight: bold;
+      font-size: large;
+    }
+  }
+}

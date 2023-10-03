@@ -4,7 +4,7 @@
   </button>
   <span>Add New Item</span>
   <span class="spacer"></span>
-  <button mat-icon-button (click)="addItemToList()">
+  <button mat-icon-button (click)="addNewSubList()">
     <mat-icon>note_add</mat-icon>
   </button>
   <button mat-icon-button (click)="deleteMode = !deleteMode">
@@ -12,34 +12,41 @@
     <mat-icon *ngIf="deleteMode">cancel</mat-icon>
   </button>
 </mat-toolbar>
-<mat-selection-list
-  *ngIf="this.list?.items?.length && !this.deleteMode"
-  (selectionChange)="itemToggled($event)"
->
-  <mat-list-option
-    *ngFor="let list of this.list?.items"
-    [selected]="list.complete"
-    [value]="list"
-    color="primary"
-  >
-    {{ list.name }}
-  </mat-list-option>
-</mat-selection-list>
-
-<mat-list *ngIf="this.list?.items?.length && this.deleteMode">
-  <mat-list-item
-    class="list-display"
-    *ngFor="let list of this.list?.items; let i = index"
-  >
-    <div matListItemTitle>{{ list.name }}</div>
-    <div class="spacer"></div>
-    <button
-      matListItemMeta
-      mat-icon-button
-      *ngIf="deleteMode"
-      (click)="deleteItem(i)"
-    >
-      <mat-icon>delete_forever</mat-icon>
-    </button>
-  </mat-list-item>
-</mat-list>
+<div *ngIf="!deleteMode">
+  <div *ngFor="let list of this.list?.lists; let i = index">
+    <div class="list-head">
+      <div class="list-head-text-container">
+        <div class="list-head-text">{{list.name}}</div>
+      </div>
+      <button mat-icon-button (click)="addItemToList(i)">
+        <mat-icon class="list-image"  color="primary">note_add</mat-icon>
+      </button>
+    </div>
+    <mat-selection-list *ngIf="this.list?.items?.length && !this.deleteMode" (selectionChange)="itemToggled($event, i)">
+      <mat-list-option *ngFor="let list of this.list?.items" [selected]="list.complete" [value]="list" color="primary">
+        {{ list.name }}
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+</div>
+<div *ngIf="deleteMode">
+  <div *ngFor="let list of this.list?.lists; let li = index">
+    <div class="list-head">
+      <div class="list-head-text-container">
+        <div class="list-head-text">{{list.name}}</div>
+      </div>
+      <button mat-icon-button *ngIf="deleteMode" (click)="deleteSublist(li)">
+        <mat-icon color="primary">delete_forever</mat-icon>
+      </button>
+    </div>
+    <mat-list *ngIf="this.list?.items?.length && this.deleteMode">
+      <mat-list-item class="list-display" *ngFor="let list of this.list?.items; let i = index">
+        <div matListItemTitle>{{ list.name }}</div>
+        <div class="spacer"></div>
+        <button matListItemMeta mat-icon-button *ngIf="deleteMode" (click)="deleteItem(i, li)">
+          <mat-icon color="primary">delete_forever</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>
