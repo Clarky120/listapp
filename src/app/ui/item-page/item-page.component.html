@@ -19,7 +19,7 @@
         <div class="list-head-text">{{list.name}}</div>
       </div>
       <button mat-icon-button (click)="addItemToList(i)">
-        <mat-icon class="list-image">note_add</mat-icon>
+        <mat-icon class="list-image"  color="primary">note_add</mat-icon>
       </button>
     </div>
     <mat-selection-list *ngIf="this.list?.items?.length && !this.deleteMode" (selectionChange)="itemToggled($event, i)">
@@ -36,7 +36,7 @@
         <div class="list-head-text">{{list.name}}</div>
       </div>
       <button mat-icon-button *ngIf="deleteMode" (click)="deleteSublist(li)">
-        <mat-icon>delete_forever</mat-icon>
+        <mat-icon color="primary">delete_forever</mat-icon>
       </button>
     </div>
     <mat-list *ngIf="this.list?.items?.length && this.deleteMode">
@@ -44,7 +44,7 @@
         <div matListItemTitle>{{ list.name }}</div>
         <div class="spacer"></div>
         <button matListItemMeta mat-icon-button *ngIf="deleteMode" (click)="deleteItem(i, li)">
-          <mat-icon>delete_forever</mat-icon>
+          <mat-icon color="primary">delete_forever</mat-icon>
         </button>
       </mat-list-item>
     </mat-list>
